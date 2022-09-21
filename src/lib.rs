@@ -108,7 +108,9 @@ impl Builder for Http {
 mod tests {
     use wiremock::{
         matchers::{method, path},
-        Mock, MockServer, ResponseTemplate,
+        Mock,
+        MockServer,
+        ResponseTemplate,
     };
 
     use super::{error, Builder, Http};
