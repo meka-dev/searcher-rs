@@ -1,0 +1,20 @@
+[package]
+name    = "mekate-searcher-rs"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+async-trait         = { version = "0.1",  default-features = false }
+futures             = { version = "0.3",  default-features = false, features = [ "alloc" ] }
+hex                 = { version = "0.4",  default-features = false }
+reqwest             = { version = "0.11", default-features = false, features = [ "default-tls", "json" ] }
+serde               = { version = "1.0",  default-features = false, features = [ "derive" ] }
+serde_json          = { version = "1.0",  default-features = false, features = [ "alloc" ] }
+thiserror           = { version = "1.0" }
+tracing             = { version = "0.1",  default-features = false }
+url                 = { version = "2.2",  default-features = false }
+
+[dev-dependencies]
+pretty_assertions   = { version = "1.1",  default-features = false, features = [ "std" ] }
+tokio               = { version = "1.0",  default-features = false, features = [ "macros", "rt-multi-thread", "sync", "time" ] }
+wiremock            = { version = "0.5",  default-features = false }
