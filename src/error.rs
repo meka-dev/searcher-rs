@@ -3,6 +3,7 @@ use std::fmt::{Display, Formatter};
 use serde::{de::StdError, Deserialize, Serialize};
 use thiserror::Error;
 
+/// Collection of all errors returned by the library.
 #[derive(Debug, Error)]
 pub enum Error {
     #[error("error: {:?}, code: {:?}, text: {:?}", .0.error, .0.status_code, .0.status_text)]
@@ -15,6 +16,7 @@ pub enum Error {
     Init(String),
 }
 
+/// AuctionError is the wrapper for all errors returned by the mekatek API.
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct AuctionError {
     pub error: String,

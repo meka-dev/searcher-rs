@@ -5,7 +5,7 @@ edition       = "2021"
 description   = "Tools to build searchers in Rust"
 license       = "MIT"
 repository    = "https://github.com/meka-dev/searcher-rs"
-keywords      = ["cosomos", "tendermint", "mev", "pbs", "searcher"]
+keywords      = ["cosmos", "tendermint", "mev", "pbs", "searcher"]
 categories    = ["api-bindings", "cryptography::cryptocurrencies"]
 
 [dependencies]
