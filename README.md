@@ -1,4 +1,4 @@
-# mekatek-searcher-rs
+# zenith-searcher-rs
 
-Tools to build searchers in Rust.
+Tools to build searchers using the Zenith block market in Rust.
 
