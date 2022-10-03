@@ -21,6 +21,46 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
+  docs:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        toolchain: [nightly]
+
+    name: Docs
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        id: toolchain
+        if: steps.cache-toolchain.outputs.cache-hit != 'true'
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.toolchain }}
+          components: cargo, clippy, rustc, rustfmt
+          override: true
+
+      - name: Cache toolchain
+        uses: actions/cache@v2
+        id: cache-toolchain
+        with:
+          path: |
+            ~/.rustup/settings.toml
+            ~/.rustup/toolchains/${{ matrix.toolchain }}-*
+            ~/.rustup/update-hashes/${{ matrix.toolchain }}-*
+          key: rust-toolchain_${{ matrix.os }}-${{ steps.toolchain.outputs.rustc_hash }}
+
+      - name: Run docs
+        uses: actions-rs/cargo@v1
+        env:
+          RUSTDOCFLAGS: "--cfg docsrs"
+        with:
+          command: doc
+          args: --all-features
+
   lint:
     strategy:
       matrix:
@@ -40,7 +80,7 @@ jobs:
         with:
           profile: minimal
           toolchain: ${{ matrix.toolchain }}
-          components: cargo, clippy, rustfmt
+          components: cargo, clippy, rustc, rustfmt
           override: true
 
       - name: Cache toolchain
@@ -88,7 +128,7 @@ jobs:
         with:
           profile: minimal
           toolchain: ${{ matrix.toolchain }}
-          components: cargo, clippy, rustfmt
+          components: cargo, clippy, rustc, rustfmt
           override: true
 
       - name: Cache toolchain
