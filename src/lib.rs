@@ -1,6 +1,6 @@
 //! Bid on blockspace via the mekatek block auctions.
 //!
-//! This crate provides a simple wrapper around the mekatek block Builder
+//! This crate provides a simple wrapper around the Zenith block Builder
 //! API. It allows anyone to bid on block space auctions and poll for available
 //! auctions coming up.
 //!
