@@ -6,11 +6,11 @@
 //!
 //! # Usage
 //!
-//! Add `searcher-rs` to the dependencies section of your `Cargo.toml` file.
+//! Add `zenith-rs` to the dependencies section of your `Cargo.toml` file.
 //!
 //! ```toml
 //! [dependencies]
-//! mekatek-searcher-rs = "1"
+//! zenith-rs = "1"
 //! ```
 #![warn(clippy::nursery, clippy::cargo)]
 
@@ -29,6 +29,34 @@ pub use error::AuctionError;
 static USER_AGENT: &str = concat!(env!("CARGO_PKG_NAME"), "/", env!("CARGO_PKG_VERSION"),);
 
 /// The Builder trait encapsulates the capabilities of the Zenith builder API.
+///
+/// ```
+/// // import the `zenith-rs` crate, usually this is done
+/// // with `use zenith_rs::*`
+/// use zenith_rs::{Builder, Http as BuilderHttp};
+/// use tokio::sync::{mpsc, watch, Mutex};
+/// # use wiremock::{matchers::{method, path}, Mock, MockServer, ResponseTemplate };
+///
+/// # #[tokio::main]
+/// # async fn main() -> Result<(), Box<dyn std::error::Error>>{
+/// # let response = ResponseTemplate::new(410).set_body_bytes(include_bytes!("../fixtures/auction_gone.json").to_vec());
+/// # let server = MockServer::start().await;
+/// # Mock::given(method("GET"))
+/// # .and(path("v0/auction"))
+/// # .respond_with(response)
+/// # .mount(&server)
+/// # .await;
+/// # let meka_api = server.uri();
+/// let builder = BuilderHttp::new(meka_api)?;
+/// let height = 1325235;
+/// let r = builder.auction("osmosis-1".to_string(), height).await;
+/// match r {
+///   Err(e) => println!("no auction for {:?}: {:?}", height, e),
+///   Ok(a) => println!("found an auction for {:?}", a),
+/// }
+/// # Ok(())
+/// # }
+/// ```
 #[async_trait::async_trait]
 pub trait Builder: Send + Sync {
     async fn bid(

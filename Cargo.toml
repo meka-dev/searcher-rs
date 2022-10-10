@@ -1,10 +1,10 @@
 [package]
-name          = "mekatek-searcher-rs"
+name          = "zenith-rs"
 version       = "0.1.0"
 edition       = "2021"
 description   = "Tools to build searchers in Rust"
 license       = "MIT"
-repository    = "https://github.com/meka-dev/searcher-rs"
+repository    = "https://github.com/meka-dev/zenith-rs"
 keywords      = ["cosmos", "tendermint", "mev", "pbs", "searcher"]
 categories    = ["api-bindings", "cryptography::cryptocurrencies"]
 
